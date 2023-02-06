@@ -4,7 +4,7 @@ Voici quelques fonctions utiles  pour le mdf
 
 # Fonctions utiles
 
- - racine carrée : ``Math.sqrt(nb)` 
+ - racine carrée : `Math.sqrt(nb)` 
  - convertir hexa en base 10 :   `parseInt(codeHexa, 10)` 
  - convertir un nombre en hexa :    `nb.toString(16)`
  - Récupère l'entier d'un nombre : `Number.toInteger(val)`
@@ -47,7 +47,7 @@ Voici quelques fonctions utiles  pour le mdf
 
 # Opérations sur les tableaux
 
-- Convertir toutes les entrées de type string en nombre :`input = input.map(i => +i`ou `input.map(Number)`
+- Convertir toutes les entrées de type string en nombre :`input = input.map(i => +i)`ou `input.map(Number)`
 - Récuperer les valeurs unique d'un tableau : `input = [...new Set(input)]`
 - Récuperer les valeurs qui apparaissent au moins deux fois dans un tableau : `input = input.filter(i => input.filter(j => i === j).length >= 2)`
 - Créer un tableau de taille 10 rempli de 0 : `Array(10).fill(0)`
