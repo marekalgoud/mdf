@@ -164,3 +164,60 @@ suppression d'une valeur
 ```js
 map.delete('a')
 ```
+
+# Graph
+
+Utiliser la librairie graph-data-structure présente dans le répertoire librairie.
+
+Initialiser le graph
+```js
+const graph = Graph();
+```
+
+Ajouter des noeuds
+
+```js
+graph.addNode("a");
+graph.addNode("b");
+graph.addEdge("a", "b");
+```
+
+Les noeuds sont ajoutés de manière implicites lors que l'on rajoute des liens :
+```js
+graph.addEdge("b", "c");
+```
+
+Voir une version sérialisée du graph
+```js
+graph.serialize();
+```
+
+## Algorithme des graph
+
+Récupérer le tri topoligique du graph
+```js
+graph.topologicalSort(); // Returns ["a", "b", "c"]
+```
+
+DFS
+```js
+graph.depthFirstSearch([sourceNodes][, includesourcenodes][, errorOnCycle])
+```
+
+Est-ce que le graph contient des cycles ?
+
+```js
+graph.hasCycle()
+```
+
+Plus petit ancetre commun
+
+```js
+graph.lowestCommonAncestors([node1][, node2])
+```
+
+Le plus court chemin
+
+```js
+graph.shortestPath(sourceNode, destinationNode)
+```
