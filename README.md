@@ -51,6 +51,11 @@ Voici quelques fonctions utiles  pour le mdf
 - Récuperer les valeurs unique d'un tableau : `input = [...new Set(input)]`
 - Récuperer les valeurs qui apparaissent au moins deux fois dans un tableau : `input = input.filter(i => input.filter(j => i === j).length >= 2)`
 - Créer un tableau de taille 10 rempli de 0 : `Array(10).fill(0)`
+- récupérer une partie d'un tableau : 
+```js 
+const newArray = arr.slice(début)
+const newArray = arr.slice(début, fin)
+```
 
 # Equivalent des fonctions itertools de python
 
