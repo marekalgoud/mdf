@@ -197,6 +197,24 @@ Voir une version sérialisée du graph
 graph.serialize();
 ```
 
+### Requete sur le graph
+
+```graph.nodes()```
+
+Liste tous les noeuds du graph
+
+```graph.adjacent(node)```
+
+Renvoie la liste des noeuds adjacent au noeud en paramètre.(**u** -> **v**)
+
+```graph.indegree(node)```
+
+Calcul le nombre de connexions entrantes
+
+```graph.outdegree(node)```
+
+Calcul le nombre de connexions sortantes
+
 ## Algorithme des graph
 
 Récupérer le tri topoligique du graph
@@ -225,4 +243,91 @@ Le plus court chemin
 
 ```js
 graph.shortestPath(sourceNode, destinationNode)
+```
+
+## Quelques bouts de codes utiles sur les graphs
+
+récupère les noeuds "root"
+```js
+graph.nodes.filter(node => graph.indegrees(node) == 0)
+```
+
+Nombre de feuilles enfants (noeud sans enfants) d'un noeud
+```js
+function nbChildren(node) {
+    const nodes = graph.adjacent(node)
+    if(nodes.length == 0) {
+        return 1
+    } else {
+        let nb = 0
+        for(let n of nodes) {
+            nb += nbChildren(n)
+        }
+        return nb
+    }
+}
+```
+
+Nombre de noeud enfants d'un noeud
+```js
+function nbChildren(node) {
+    const nodes = graph.adjacent(node)
+    let nb = nodes.length
+    for(let n of nodes) {
+        nb += nbChildren(n)
+    }
+    return nb
+}
+```
+# Tri
+
+Tri par sélection 
+
+```js
+function sort(tab) {
+  for(let i = 0; i < tab.length; i++) {
+    //stocker l'index de l'élément minimum
+    let min = i
+    for(let j = i+1; j < tab.length; j++) {
+      if(tab[j] < tab[min]) {
+       // mettre à jour l'index de l'élément minimum
+       min = j
+      }
+    }
+    var tmp = tab[i]
+    tab[i] = tab[min]
+    tab[min] = tmp
+  }
+  return tab
+};
+var tab = [5, 8, 11, 6, 1, 9, 3];
+sort(tab);
+console.log(tab);
+```
+
+Bubble sort
+
+```js
+function bubblesort(tab) {
+  let swap = 0
+  for (let i = 0; i < tab.length - 1; i++) {
+    if (tab[i+1] < tab[i]) {
+          const temp = [tab[i+1],tab[i]]
+          tab[i+1] = temp[1]
+          tab[i] = temp[0]
+          swap += 1
+    }
+    if (i+1 === tab.length - 1) {
+      if (swap === 0) {
+          break
+      } else {
+          i -= tab.length - 1
+          swap = 0
+      }
+    }
+  }
+  return tab
+}
+const tab = [4,2,5,1,3]
+console.log(bubblesort(tab))
 ```
