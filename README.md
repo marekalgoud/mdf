@@ -56,6 +56,10 @@ Voici quelques fonctions utiles  pour le mdf
 const newArray = arr.slice(début)
 const newArray = arr.slice(début, fin)
 ```
+- Trouver le max d'un tableau
+```js
+const max = Math.max(...montableau)
+```
 
 # Equivalent des fonctions itertools de python
 
@@ -139,6 +143,46 @@ donne
 
 `[['A', 'B'], ['A', 'C'], ['A', 'D'], ['B', 'C'], ['B', 'D'], ['C', 'D']]`
 
+- Pairwise :
+
+```js
+const pairwise = function* (iterable) {
+  const elements = Array.from(iterable);
+  for (let i = 0; i < elements.length - 1; i++) {
+    yield [elements[i], elements[i + 1]];
+  }
+};
+
+var nums = [1,2,3,4,5,6];
+
+var res = pairwise(nums);
+
+Array.from(res).forEach(function(elem) {
+   console.log(elem); 
+});
+```
+
+- Permute :
+```js
+function permute(arr, size = arr.length) {
+  let results = [];
+
+  function backtrack(first = 0) {
+    if (first === size) {
+      results.push([...arr.slice(0, size)]);
+    }
+
+    for (let i = first; i < arr.length; i++) {
+      [arr[first], arr[i]] = [arr[i], arr[first]];
+      backtrack(first + 1);
+      [arr[first], arr[i]] = [arr[i], arr[first]];
+    }
+  }
+
+  backtrack();
+  return results;
+}
+```
 
 # Map
 
@@ -330,4 +374,22 @@ function bubblesort(tab) {
 }
 const tab = [4,2,5,1,3]
 console.log(bubblesort(tab))
+```
+
+# Géometrie
+
+- distance entre deux points en 2D (|x₂-x₁| + |y₂-y₁|):
+
+```js
+function dist(a, b) {
+  return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
+}
+```
+
+- distance entre deux points en 3D (|x₂-x₁| + |y₂-y₁| + |z₂-z₁|):
+
+```js
+function dist(a, b) {
+  return Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)
+}
 ```
