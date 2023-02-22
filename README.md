@@ -184,6 +184,14 @@ function permute(arr, size = arr.length) {
 }
 ```
 
+exemple d'utilisation :
+
+`permute(['A','B', 'C'])`
+
+donne
+
+`[['A', 'B', 'C], ['A','C', 'B'], ['B', 'A', 'C'], ['B', 'C', 'A], ['C', 'B', 'A'], ['C', 'A', 'B]]`
+
 # Map
 
 `const map = new Map()`
