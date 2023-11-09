@@ -80,13 +80,32 @@ function lmc(arr) {
 - Plus grand diviseur commun (greatest common dividor)
 
 ```js
-function gcd(a, b) {
-    if(b === 0) {
-       return a
+function gcdOfArray(numbers) {
+  if (numbers.length === 0) {
+    return null;
+  }
+  if (numbers.length === 1) {
+    return numbers[0];
+  }
+
+  function gcd(a, b) {
+    if (b === 0) {
+      return a;
     }
-    return gcd(b, a % b)
+    return gcd(b, a % b);
+  }
+
+  let result = numbers[0];
+  for (let i = 1; i < numbers.length; i++) {
+    result = gcd(result, numbers[i]);
+  }
+
+  return result;
 }
 
+// Example usage:
+const numbers = [24, 36, 48, 60];
+const result = gcdOfArray(numbers);
 ```
 
 
