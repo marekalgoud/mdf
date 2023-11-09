@@ -7,7 +7,7 @@ Voici quelques fonctions utiles  pour le mdf
  - racine carrée : `Math.sqrt(nb)` 
  - convertir hexa en base 10 :   `parseInt(codeHexa, 10)` 
  - convertir un nombre en hexa :    `nb.toString(16)`
- - Récupère l'entier d'un nombre : `Number.toInteger(val)`
+ - Récupère l'entier d'un nombre : `Math.floor(val)`
  
  - Récupère les 5 derniers caractères d'une chaine : `xxx.slice(-5)`
  
@@ -60,6 +60,35 @@ const newArray = arr.slice(début, fin)
 ```js
 const max = Math.max(...montableau)
 ```
+
+# Arithmétique
+
+- Plus petit multiplicateur commun (lower common multiplicator)
+
+```js
+function lmc(arr) {
+  function gcd(a, b) {
+    if(b === 0) {
+       return a
+    }
+    return gcd(b, a % b)
+  }
+  return arr.reduce((a,b) => (a * b) / gcd(a, b))
+}
+```
+
+- Plus grand diviseur commun (greatest common dividor)
+
+```js
+function gcd(a, b) {
+    if(b === 0) {
+       return a
+    }
+    return gcd(b, a % b)
+}
+
+```
+
 
 # Equivalent des fonctions itertools de python
 
@@ -137,7 +166,7 @@ const combinations = (set) => {
 
 exemple d'utilisation :
 
-`k_combinaison(['A','B', 'C', 'D'], 2)`
+`k_combinations(['A','B', 'C', 'D'], 2)`
 
 donne
 
@@ -386,18 +415,62 @@ console.log(bubblesort(tab))
 
 # Géometrie
 
-- distance entre deux points en 2D (|x₂-x₁| + |y₂-y₁|):
+- distance entre deux points en 2D (manathan distance) (|x₂-x₁| + |y₂-y₁|):
 
 ```js
-function dist(a, b) {
+function distM(a, b) {
   return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
 }
 ```
 
-- distance entre deux points en 3D (|x₂-x₁| + |y₂-y₁| + |z₂-z₁|):
+- distance entre deux points en 2D  (√|x₂-x₁|² + |y₂-y₁|²):
 
 ```js
-function dist(a, b) {
+function distM(a, b) {
+  return Math.sqrt(Math.pow(Math.abs(a.x - b.x), 2) + Math.pow(Math.abs(a.y - b.y), 2))
+}
+```
+
+- distance entre deux points en 3D (manathan distance) (|x₂-x₁| + |y₂-y₁| + |z₂-z₁|):
+
+```js
+function distM(a, b) {
   return Math.abs(a.x - b.x) + Math.abs(a.y - b.y) + Math.abs(a.z - b.z)
 }
 ```
+- distance entre deux points en 3D (manathan distance) (√|x₂-x₁|² + |y₂-y₁|² + |z₂-z₁|²):
+
+```js
+function dist(a, b) {
+  return Math.sqrt(Math.pow(Math.abs(a.x - b.x), 2) + Math.pow(Math.abs(a.y - b.y),2) + Math.pow(Math.abs(a.z - b.z),2))
+}
+```
+
+# Temps
+- converti une chaine du type hh:mm en nombre de minutes
+
+  ```js
+function str2min(str) {
+ const [h,m] = str.split(':').map(Number)
+ return h * 60 + m
+}
+  ```
+
+- converti un nombre du minute au format hh:mm
+
+```js
+function min2str(nb) {
+ const h = Math.floor(nb / 60)
+ const m = nb % 60
+ retun h + ':'+m
+}
+- durée commune entre 2 plages horaires
+
+```js
+function dureeCommune(plageA, plageB) {
+   const debutCommun = plageA.start > plageB.start ? plageA.start : plageB.start
+   const finCommun = plageA.stop < plageB.stop ? plageA.stop : plageB.stop
+
+   const duree = Math.max(0, finCommun - debutCommun)
+   return duree
+}
