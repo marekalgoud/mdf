@@ -465,15 +465,73 @@ function dist(a, b) {
 }
 ```
 
+- Welzl'Algorithm (plus petit cercle pour couvrir tous les points)
+  
+```js
+function circle_from_three_points_or_less(P) {
+    if (P.length === 0) {
+        return [{ x: 0, y: 0 }, 0];
+    } else if (P.length === 1) {
+        const [p] = P;
+        return [p, 0];
+    } else if (P.length === 2) {
+        return circle_from_two_points(...P.flat());
+    } else if (P.length === 3) {
+        return circle_from_three_points(...P.flat());
+    }
+}
+
+function circle_from_two_points(x1, y1, x2, y2) {
+    return [{ x: (x1 + x2) / 2, y: (y1 + y2) / 2 }, (Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)) / 4];
+}
+
+function circle_from_three_points(x1, y1, x2, y2, x3, y3) {
+    const x12 = x1 - x2, x13 = x1 - x3;
+    const y12 = y1 - y2, y13 = y1 - y3;
+    const y31 = y3 - y1, y21 = y2 - y1;
+    const x31 = x3 - x1, x21 = x2 - x1;
+
+    const sx13 = x1 * x1 - x3 * x3;
+    const sy13 = y1 * y1 - y3 * y3;
+    const sx21 = x2 * x2 - x1 * x1;
+    const sy21 = y2 * y2 - y1 * y1;
+
+    const X = -(sx13 * y12 + sy13 * y12 + sx21 * y13 + sy21 * y13) / (2 * (x31 * y12 - x21 * y13));
+    const Y = -(sx13 * x12 + sy13 * x12 + sx21 * x13 + sy21 * x13) / (2 * (y31 * x12 - y21 * x13));
+
+    const c = -x1 * x1 - y1 * y1 + 2 * X * x1 + 2 * Y * y1;
+
+    const r_squared = X * X + Y * Y - c;
+
+    return [{ x: X, y: Y }, r_squared];
+}
+
+function welzl(P, R) {
+    if (!P.length || R.length === 3) {
+        return circle_from_three_points_or_less(R);
+    }
+
+    const p = P[Math.floor(Math.random() * P.length)];
+
+    const [c, r_squared] = welzl(P.filter(point => point !== p), R);
+
+    if (Math.pow(p[0] - c[0], 2) + Math.pow(p[1] - c[1], 2) <= r_squared) {
+        return [c, r_squared];
+    }
+
+    return welzl(P.filter(point => point !== p), [...R, p]);
+}
+```
+
 # Temps
 - converti une chaine du type hh:mm en nombre de minutes
 
-  ```js
+```js
 function str2min(str) {
  const [h,m] = str.split(':').map(Number)
  return h * 60 + m
 }
-  ```
+```
 
 - converti un nombre du minute au format hh:mm
 
@@ -483,6 +541,7 @@ function min2str(nb) {
  const m = nb % 60
  retun h + ':'+m
 }
+```
 - durée commune entre 2 plages horaires
 
 ```js
@@ -493,3 +552,4 @@ function dureeCommune(plageA, plageB) {
    const duree = Math.max(0, finCommun - debutCommun)
    return duree
 }
+```
