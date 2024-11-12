@@ -332,6 +332,14 @@ suppression d'une valeur
 map.delete('a')
 ```
 
+Retrouver la clé qui a la valeur max
+
+```js
+const maxKey = [...myMap.entries()].reduce((max, current) =>
+  current[1] > max[1] ? current : max
+)[0];
+```
+
 # Graph
 
 Utiliser la librairie graph-data-structure présente dans le répertoire librairie.
