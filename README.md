@@ -108,6 +108,68 @@ const numbers = [24, 36, 48, 60];
 const result = gcdOfArray(numbers);
 ```
 
+- Resoudre un système d'équation (Méthode de Gauss-Jordan)
+
+```js
+function solveLinearSystem(matrix, constants) {
+    const n = matrix.length;
+
+    // Créer la matrice augmentée [A|b]
+    const augmentedMatrix = matrix.map((row, i) => [...row, constants[i]]);
+
+    // Appliquer l'élimination de Gauss-Jordan
+    for (let i = 0; i < n; i++) {
+        // Trouver le pivot
+        let maxRow = i;
+        for (let k = i + 1; k < n; k++) {
+            if (Math.abs(augmentedMatrix[k][i]) > Math.abs(augmentedMatrix[maxRow][i])) {
+                maxRow = k;
+            }
+        }
+
+        // Échanger les lignes pour placer le plus grand élément en haut
+        [augmentedMatrix[i], augmentedMatrix[maxRow]] = [augmentedMatrix[maxRow], augmentedMatrix[i]];
+
+        // Vérifier si le système est indéterminé ou impossible
+        if (augmentedMatrix[i][i] === 0) {
+            return "Le système n'a pas de solution unique.";
+        }
+
+        // Normaliser la ligne pivot
+        const pivot = augmentedMatrix[i][i];
+        for (let j = i; j <= n; j++) {
+            augmentedMatrix[i][j] /= pivot;
+        }
+
+        // Éliminer les autres éléments dans la colonne
+        for (let k = 0; k < n; k++) {
+            if (k !== i) {
+                const factor = augmentedMatrix[k][i];
+                for (let j = i; j <= n; j++) {
+                    augmentedMatrix[k][j] -= factor * augmentedMatrix[i][j];
+                }
+            }
+        }
+    }
+
+    // Extraire les solutions
+    const solution = augmentedMatrix.map(row => row[n]);
+    return solution;
+}
+
+// Exemple d'utilisation
+const matrix = [
+    [2, -1, 3],
+    [1, 0, -2],
+    [3, 1, -1]
+];
+const constants = [5, 3, -2];
+const solution = solveLinearSystem(matrix, constants);
+
+console.log("Solution:", solution);
+
+```
+
 
 # Equivalent des fonctions itertools de python
 
