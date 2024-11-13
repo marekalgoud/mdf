@@ -8,6 +8,7 @@ Voici quelques fonctions utiles  pour le mdf
  - convertir hexa en base 10 :   `parseInt(codeHexa, 10)` 
  - convertir un nombre en hexa :    `nb.toString(16)`
  - Récupère l'entier d'un nombre : `Math.floor(val)`
+ - Donne un nombre à virgule de n decimales (x doit être un Number) : `x.toFixed(n)`
  
  - Récupère les 5 derniers caractères d'une chaine : `xxx.slice(-5)`
  
@@ -593,6 +594,17 @@ function welzl(P, R) {
 }
 ```
 
+Tester si un point est dans un cercle de diamètre 
+
+```js
+function isPointInCircle(x, y, n) {
+  // Calcule la distance au carré entre le point (x, y) et le centre (0, 0)
+  const distanceSquared = x * x + y * y;
+  // Compare avec le carré du rayon pour éviter d'utiliser une racine carrée
+  return distanceSquared <= n * n;
+}
+```
+
 # Temps
 - converti une chaine du type hh:mm en nombre de minutes
 
@@ -603,7 +615,7 @@ function str2min(str) {
 }
 ```
 
-- converti un nombre du minute au format hh:mm
+- converti un nombre de minutes au format hh:mm
 
 ```js
 function min2str(nb) {
